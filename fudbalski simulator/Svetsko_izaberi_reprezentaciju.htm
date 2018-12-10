@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type = "text/javascript">
+
+function izaberiReprezentaciju()
+{
+	var zemlje = ['Russia','Saudi Arabia','Egypt','Uruguay','Portugal','Spain','Morocco','Iran','France','Australia','Peru','Denmark','Argentina','Iceland','Hrvatska','Nigeria',
+					'Brazil','Switzerland','Costarica','Srbija','Germany','Mexico','Sweden','South Korea','Belgium','Panama','Tunis','England','Poland','Senegal','Colombia','Japan'];
+	var imenaGrupa = ['A','B','C','D','E','F','G','H'];
+	var pomocna = 0;
+	for (let x = 0;x<4;x++)
+	{
+		for (let y = x;y<32;y+=4)
+		{
+			let dugme = document.createElement('input');
+			dugme.type = 'button';
+			dugme.value = zemlje[y];			
+			dugme.classList.add(imenaGrupa[pomocna]);
+			dugme.onclick = function (){localStorage.setItem('izabranaReprezentacija',this.value);
+										var aktivnaGrupa = 'SPgrupa'+this.className;
+										localStorage.setItem('aktivnaLiga',aktivnaGrupa);
+										window.location.replace('SvetskoPrvenstvo.htm');
+										};
+			document.body.appendChild(dugme);	
+			pomocna++;
+		}
+		var noviRed = document.createElement('br');
+		document.body.appendChild(noviRed);		
+		pomocna = 0;
+	}
+}
+
+</script>
+<style>
+p	{
+font-size:30px;
+font-weight:bold;
+text-align:center;
+}
+input[type = button]	{
+width:195px;
+height:100px;
+font-size:24px;
+text-transform: uppercase;
+background-color:#FFFACD;
+cursor:pointer;
+}
+input[type=button]:hover	{
+ background-color: yellow;
+}
+.grupa	{
+font-size:20px;
+display:inline-block;
+width:195px;
+}
+body	{
+background-color:#FFF5EE;
+}
+.A 	{
+color:red;
+}
+.B  {
+color:blue;
+}
+.C  {
+color:#D2691E;
+}
+.D  {
+color:grey;
+}
+.E  {
+color:maroon;
+}
+.F  {
+color:purple;
+}
+.G  {
+color:orange;
+}
+.H  {
+color:green;
+}
+</style>
+</head>
+<body onload = "izaberiReprezentaciju()">
+<p>IZABERITE SVOJU REPREZENTACIJU:</p>
+<p class="grupa">A grupa</p><p class="grupa">B grupa</p><p class="grupa">C grupa</p><p class="grupa">D grupa</p><p class="grupa">E grupa</p><p class="grupa">F grupa</p><p class="grupa">G grupa</p><p class="grupa">H grupa</p></br>
+</body>
+</html>

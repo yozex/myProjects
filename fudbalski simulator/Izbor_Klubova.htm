@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type = "text/javascript">
+var kontrola = true;							// sprecava visestruki unos podataka, tj. duplirano kreiranje textarea 
+
+function napraviProzorcice()							// kreira tabelicu za unos podataka
+{
+	if (kontrola === true)
+	{
+	var broj = parseInt(document.getElementById('br').value);		//iskljucuje mogucnost unosa neparnog broja timova
+		if (broj % 2 !== 0)
+		{
+			alert("Mora biti paran broj timova. Pokusajte ponovo!");
+			document.getElementById('br').value  = '';
+			location.reload();
+		}
+	var tabela = document.getElementById('klubovi');
+	for (var x = 0;x<broj;x++)
+	{
+		var izaberiKlub = document.createTextNode("Klub "+(x+1)+": ");
+		tabela.appendChild(izaberiKlub);
+		var prozorcic = document.createElement("textarea");			// prostor za ime kluba
+		prozorcic.style.height = '20px';
+		prozorcic.style.width = '250px';
+		prozorcic.style.color = 'red';
+		prozorcic.style.fontSize = '16px';
+		tabela.appendChild(prozorcic);
+		var izaberiKlasu = document.createTextNode("Klasa: ");
+		tabela.appendChild(izaberiKlasu);
+		var klasa = document.createElement("select");			//izbor klase kluba
+		var opt1 = document.createElement("option");
+		opt1.text = "1";
+		opt1.value = "1";
+		klasa.appendChild(opt1);
+		var opt2 = document.createElement("option");
+		opt2.text = "2";
+		opt2.value = "2";
+		klasa.appendChild(opt2);
+		var opt3 = document.createElement("option");
+		opt3.text = "3";
+		opt3.value = "3";
+		klasa.appendChild(opt3);
+		tabela.appendChild(klasa);
+		var brejk = document.createElement('br');
+		tabela.appendChild(brejk);
+	}
+	kontrola = false;
+	}
+	else
+	{
+		alert("Vec ste odredili broj timova. Pokusajte ponovo!");
+		document.getElementById('br').value  = '';
+		location.reload();
+	}
+}
+
+function proveriPodatke()
+{
+	var nedostajuciPodaci = [];
+	var tabela = document.getElementById('klubovi');
+	var klubovi = tabela.getElementsByTagName('textarea');
+	for (let x = 0;x< klubovi.length;x++)
+	{
+		if (klubovi[x].value == '')						// ako nije uneto ime kluba
+		{
+			nedostajuciPodaci.push ("Klub "+(x+1));			
+		}		
+	}
+	if (nedostajuciPodaci.length !== 0)					// ako postoje polja koja su ostala prazna, oglasi upozorenje
+	{
+		alert("Niste uneli sve podatke. Unesite imena za: "+nedostajuciPodaci);
+	}
+	else
+	{
+		napraviNiz();		
+	}
+}
+
+function napraviNiz()								// unesene podatke smesta u nizove, koji se skladiste u localStorage, i odande se ucitavaju u glavni deo programa
+{
+	var tabela = document.getElementById('klubovi');
+	var klubovi = tabela.getElementsByTagName('textarea');
+	var klase = tabela.getElementsByTagName('select');
+	var niz = [];						// niz sa imenima klubova
+	var nizKlasa = [];					// niz sa imenima klasa klubova. Imaju isto clanova, tako da su indeksom vezani klub i njegova snaga izrazena u klasi
+	for (let x = 0;x<klubovi.length;x++)
+	{
+		niz.push(klubovi[x].value);	
+		nizKlasa.push(klase[x].value);
+	}	
+	localStorage.setItem('kluboviPoIzboru',JSON.stringify(niz));
+	localStorage.setItem('klasePoIzboru',JSON.stringify(nizKlasa));
+	localStorage.setItem('mestoZaRezultatPoIzboru',0);				// resetuje sve sacuvane podatke iz prethodne igre
+	var privremeniNiz = [];
+	localStorage.setItem('rezultatiPoIzboru',JSON.stringify(privremeniNiz));
+	var privremeniNizTabela = [];
+	localStorage.setItem('staraTabelaPoIzboru',JSON.stringify(privremeniNizTabela));
+	window.location.replace("IzaberiSvojKlub.htm");
+}
+</script>
+<style>
+body	{
+background-color:#FFF5EE;
+}
+p	{
+font-size:30px;
+font-weight:bold;
+color:blue;
+display:inline-block;
+}
+#br	{
+width:200px;
+text-align:center;
+font-size:26px;
+height:30px;
+display:inline-block;
+font-weight:bold;
+}
+input[type=button]	{
+width:300px;
+font-size:18px;
+height:26px;
+cursor:pointer;
+background-color:#FFFACD;
+font-weight:bold;
+color:blue;
+}
+input[type=button]:hover	{
+ background-color: yellow;
+}
+#uvod	{
+font-size:24px;
+color:red;
+text-align:center;
+}
+#vrati	{
+display:fixed;
+position:absolute;
+width:300px;
+font-size:16px;
+font-weight:bold;
+color:blue;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<p id = "uvod">Izaberite koliko klubova ce biti u Vasoj ligi.</br>Potom upisite imena klubova, a zatim odaberite i klasu.</br>Postoje tri klase, prva je najjaca, a treca najslabija.</p></br>
+<input type = "button" value = "Vrati se na izbor lige" id ="vrati" onclick = window.location.replace('Izbor_Lige.htm')></input></br></br>
+<p>Koliko klubova:</p> <textarea id = "br" rows = "1"></textarea><input type = "button" value = "POTVRDI" onclick = "napraviProzorcice()"></input>
+<table id = "klubovi"></table>
+<input type = "button" value = "Potvrdi Timove" onclick = "proveriPodatke()"></input>
+</body>
+</html>

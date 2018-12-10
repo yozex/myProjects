@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type = "text/javascript">
+
+	localStorage.setItem('izabraniKlub','');
+	var prazanNiz = [];
+	localStorage.setItem('rezultati',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabela',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultat',0);	
+	var nizKlubovaEngleska = ["Manchester City","WBA","Manchester United","Stoke","Liverpool","Southampton",
+							"Tottenham","Swansea","Chelsea","Crystal Palace","Arsenal","Huddersfield",
+							"Burnley","West Ham","Leicester","Brighton","Everton","Bournemouth","Newcastle",
+							"Watford"];
+	var nizJacineEngleska = [1,3,1,3,1,3,2,3,1,3,1,3,3,2,2,3,2,3,2,3];
+	localStorage.setItem('kluboviEngleska',JSON.stringify(nizKlubovaEngleska));
+	localStorage.setItem('klaseEngleska',JSON.stringify(nizJacineEngleska));
+	localStorage.setItem('rezultatiEngleska',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaEngleska',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatEngleska',0);
+	var nizKlubovaItalija = ["Juventus","Benevento","Napoli","Verona","Roma","Crotone","Lazio","SPAL",
+							"Inter","Chievo","AC Milan","Sassuolo","Fiorentina","Cagliari","Atalanta",
+							"Udinese","Sampdoria","Genoa","Torino","Bologna"];
+	var nizJacineItalija = [1,3,2,3,2,3,2,3,1,3,1,3,2,3,3,2,3,3,3,3];
+	localStorage.setItem('kluboviItalija',JSON.stringify(nizKlubovaItalija));
+	localStorage.setItem('klaseItalija',JSON.stringify(nizJacineItalija));
+	localStorage.setItem('rezultatiItalija',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaItalija',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatItalija',0);
+	var	nizKlubovaSpanija = ["Barcelona","Malaga","Atletico Madrid","Las Palmas","Real Madrid","Deportivo",
+							"Valencia","Levante","Betis","Espanyol","Villareal","Alaves","Sevilla","Leganes",
+							"Girona","Athletic Bilbao","Celta","Eibar","Getafe","Real Sociedad"];
+	var nizJacineSpanija = [1,3,1,3,1,2,2,3,3,2,2,3,2,3,3,2,3,3,3,2]; 
+	localStorage.setItem('kluboviSpanija',JSON.stringify(nizKlubovaSpanija));
+	localStorage.setItem('klaseSpanija',JSON.stringify(nizJacineSpanija));
+	localStorage.setItem('rezultatiSpanija',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSpanija',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSpanija',0);
+	var nizKlubovaNemacka = ["Bayern Munich","Koln","Schalke 04","Hamburger","Leverkusen","Freiburg",
+						"Borussia Dortmund","Mainz","RB Leipzig","Wolfsburg","Hoffenheim","Hannover",
+						"Eintracht Frankfurt","Werder","Borussia Moenchengladbach","Augsburg","Hertha","Stuttgart"];
+	var nizJacineNemacka = [1,3,2,3,2,3,1,3,2,2,2,3,3,3,3,3,3,3];
+	localStorage.setItem('kluboviNemacka',JSON.stringify(nizKlubovaNemacka));
+	localStorage.setItem('klaseNemacka',JSON.stringify(nizJacineNemacka));
+	localStorage.setItem('rezultatiNemacka',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaNemacka',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatNemacka',0);
+	var nizKlubovaFrancuska = ["PSG","Metz","Monaco","Troyes","Olympic Lyon","Lille","Olympic Marseille",
+							"Toulouse","Stade Rennes","Strasbourg","Nice","Caen","Montpellier","Amiens",
+							"Saint Etienne","Angers","Nantes","Dijon","Bordeaux","Guingamp"];
+	var nizJacineFrancuska = [1,3,1,3,2,2,2,3,3,3,3,3,3,3,3,3,3,3,2,3];
+	localStorage.setItem('kluboviFrancuska',JSON.stringify(nizKlubovaFrancuska));
+	localStorage.setItem('klaseFrancuska',JSON.stringify(nizJacineFrancuska));
+	localStorage.setItem('rezultatiFrancuska',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaFrancuska',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatFrancuska',0);
+	var	nizKlubovaSrbija = ["Crvena Zvezda","Borac Cacak","Partizan","Rad","Vojvodina","Javor","Cukaricki",
+							"Backa","Radnicki Nis","Radnik Surdulica","Vozdovac","Macva","Spartak","Zemun",
+							"Napredak","Mladost Lucani"];
+	var nizJacineSrbija = [1,3,1,3,2,3,2,3,2,3,2,3,2,3,2,3];
+	localStorage.setItem('kluboviSrbija',JSON.stringify(nizKlubovaSrbija));
+	localStorage.setItem('klaseSrbija',JSON.stringify(nizJacineSrbija));
+	localStorage.setItem('rezultatiSrbija',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSrbija',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSrbija',0);
+	
+	localStorage.setItem('kluboviPoIzboru',JSON.stringify(prazanNiz));
+	localStorage.setItem('klasePoIzboru',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatPoIzboru',0);	
+	localStorage.setItem('rezultatiPoIzboru',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaPoIzboru',JSON.stringify(prazanNiz));
+	
+	var nizKlubovaLSa = ["Benfica","Basel","Manchester United","CSKA Moscow"];
+	var nizJacineLSa = [2,3,1,3];
+	localStorage.setItem('kluboviLSa',JSON.stringify(nizKlubovaLSa));
+	localStorage.setItem('klaseLSa',JSON.stringify(nizJacineLSa));
+	localStorage.setItem('rezultatiLSa',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSa',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSa',0);
+	
+	var nizKlubovaLSb = ["Bayern Munich","PSG","Celtic","Anderlecht"];
+	var nizJacineLSb = [1,1,3,3];
+	localStorage.setItem('kluboviLSb',JSON.stringify(nizKlubovaLSb));
+	localStorage.setItem('klaseLSb',JSON.stringify(nizJacineLSb));
+	localStorage.setItem('rezultatiLSb',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSb',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSb',0);
+	
+	var nizKlubovaLSc = ["Chelsea","Atletico Madrid","Roma","Qarabag"];
+	var nizJacineLSc = [1,1,2,3];
+	localStorage.setItem('kluboviLSc',JSON.stringify(nizKlubovaLSc));
+	localStorage.setItem('klaseLSc',JSON.stringify(nizJacineLSc));
+	localStorage.setItem('rezultatiLSc',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSc',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSc',0);
+	
+	var nizKlubovaLSd = ["Barcelona","Sporting Lisbon","Olympiakos","Juventus"];
+	var nizJacineLSd = [1,2,3,1];
+	localStorage.setItem('kluboviLSd',JSON.stringify(nizKlubovaLSd));
+	localStorage.setItem('klaseLSd',JSON.stringify(nizJacineLSd));
+	localStorage.setItem('rezultatiLSd',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSd',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSd',0);
+	
+	var nizKlubovaLSe = ["Liverpool","Spartak Moscow","Maribor","Sevilla"];
+	var nizJacineLSe = [1,3,3,2];
+	localStorage.setItem('kluboviLSe',JSON.stringify(nizKlubovaLSe));
+	localStorage.setItem('klaseLSe',JSON.stringify(nizJacineLSe));
+	localStorage.setItem('rezultatiLSe',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSe',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSe',0);
+	
+	var nizKlubovaLSf = ["Feyenoord","Napoli","Shaktar","Manchester City"];
+	var nizJacineLSf = [3,2,3,1];
+	localStorage.setItem('kluboviLSf',JSON.stringify(nizKlubovaLSf));
+	localStorage.setItem('klaseLSf',JSON.stringify(nizJacineLSf));
+	localStorage.setItem('rezultatiLSf',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSf',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSf',0);
+	
+	var nizKlubovaLSg = ["Porto","Monaco","RBL","Besiktas"];
+	var nizJacineLSg = [2,2,2,3];
+	localStorage.setItem('kluboviLSg',JSON.stringify(nizKlubovaLSg));
+	localStorage.setItem('klaseLSg',JSON.stringify(nizJacineLSg));
+	localStorage.setItem('rezultatiLSg',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSg',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSg',0);
+	
+	var nizKlubovaLSh = ["Real Madrid","Borussia Dortmund","Tottenham","Apoel Nicosia"];
+	var nizJacineLSh = [1,2,2,3];
+	localStorage.setItem('kluboviLSh',JSON.stringify(nizKlubovaLSh));
+	localStorage.setItem('klaseLSh',JSON.stringify(nizJacineLSh));
+	localStorage.setItem('rezultatiLSh',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaLSh',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLSh',0);
+	
+	
+	localStorage.setItem('osmina',JSON.stringify(prazanNiz));
+	localStorage.setItem('cetvrtfinale',JSON.stringify(prazanNiz));
+	localStorage.setItem('polufinale',JSON.stringify(prazanNiz));
+	localStorage.setItem('finale',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatLS',0);
+	localStorage.setItem('utakmiceSaPenalimaLS',JSON.stringify(prazanNiz));
+	localStorage.setItem('pobedniciPenalaLS',JSON.stringify(prazanNiz));
+	
+	var nizKlubovaSPgrupaA = ["Russia","Saudi Arabia","Egypt","Uruguay"];
+	var nizJacineSPgrupaA = [2,3,3,2];
+	localStorage.setItem('kluboviSPgrupaA',JSON.stringify(nizKlubovaSPgrupaA));
+	localStorage.setItem('klaseSPgrupaA',JSON.stringify(nizJacineSPgrupaA));
+	localStorage.setItem('rezultatiSPgrupaA',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaA',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaA',0);
+	
+	var nizKlubovaSPgrupaB = ["Portugal","Spain","Morocco","Iran"];
+	var nizJacineSPgrupaB = [2,1,3,3];
+	localStorage.setItem('kluboviSPgrupaB',JSON.stringify(nizKlubovaSPgrupaB));
+	localStorage.setItem('klaseSPgrupaB',JSON.stringify(nizJacineSPgrupaB));
+	localStorage.setItem('rezultatiSPgrupaB',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaB',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaB',0);
+	
+	var nizKlubovaSPgrupaC = ["France","Australia","Peru","Denmark"];
+	var nizJacineSPgrupaC = [1,3,3,2];
+	localStorage.setItem('kluboviSPgrupaC',JSON.stringify(nizKlubovaSPgrupaC));
+	localStorage.setItem('klaseSPgrupaC',JSON.stringify(nizJacineSPgrupaC));
+	localStorage.setItem('rezultatiSPgrupaC',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaC',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaC',0);
+	
+	var nizKlubovaSPgrupaD = ["Argentina","Iceland","Hrvatska","Nigeria"];
+	var nizJacineSPgrupaD = [1,3,2,2];
+	localStorage.setItem('kluboviSPgrupaD',JSON.stringify(nizKlubovaSPgrupaD));
+	localStorage.setItem('klaseSPgrupaD',JSON.stringify(nizJacineSPgrupaD));
+	localStorage.setItem('rezultatiSPgrupaD',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaD',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaD',0);
+	
+	var nizKlubovaSPgrupaE = ["Brazil","Switzerland","Costarica","Srbija"];
+	var nizJacineSPgrupaE = [1,2,3,2];
+	localStorage.setItem('kluboviSPgrupaE',JSON.stringify(nizKlubovaSPgrupaE));
+	localStorage.setItem('klaseSPgrupaE',JSON.stringify(nizJacineSPgrupaE));
+	localStorage.setItem('rezultatiSPgrupaE',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaE',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaE',0);
+	
+	var nizKlubovaSPgrupaF = ["Germany","Mexico","Sweden","South Korea"];
+	var nizJacineSPgrupaF = [1,2,2,3];
+	localStorage.setItem('kluboviSPgrupaF',JSON.stringify(nizKlubovaSPgrupaF));
+	localStorage.setItem('klaseSPgrupaF',JSON.stringify(nizJacineSPgrupaF));
+	localStorage.setItem('rezultatiSPgrupaF',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaF',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaF',0);
+	
+	var nizKlubovaSPgrupaG = ["Belgium","Panama","Tunis","England"];
+	var nizJacineSPgrupaG = [2,3,3,2];
+	localStorage.setItem('kluboviSPgrupaG',JSON.stringify(nizKlubovaSPgrupaG));
+	localStorage.setItem('klaseSPgrupaG',JSON.stringify(nizJacineSPgrupaG));
+	localStorage.setItem('rezultatiSPgrupaG',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaG',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaG',0);
+	
+	var nizKlubovaSPgrupaH = ["Poland","Senegal","Colombia","Japan"];
+	var nizJacineSPgrupaH = [2,3,2,3];
+	localStorage.setItem('kluboviSPgrupaH',JSON.stringify(nizKlubovaSPgrupaH));
+	localStorage.setItem('klaseSPgrupaH',JSON.stringify(nizJacineSPgrupaH));
+	localStorage.setItem('rezultatiSPgrupaH',JSON.stringify(prazanNiz));
+	localStorage.setItem('staraTabelaSPgrupaH',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSPgrupaH',0);
+	
+	localStorage.setItem('izabranaReprezentacija','');
+	localStorage.setItem('poslednjaAktivnaLiga','');
+	
+	localStorage.setItem('sacuvaniRezultatiSP',JSON.stringify(prazanNiz));
+	localStorage.setItem('sacuvaniRazmaciSP',JSON.stringify(prazanNiz));
+	localStorage.setItem('mestoZaRezultatSP',0);
+	localStorage.setItem('utakmiceSaPenalimaSP',JSON.stringify(prazanNiz));
+	localStorage.setItem('pobedniciPenalaSP',JSON.stringify(prazanNiz));
+	
+	localStorage.setItem('svetskoDugme','true');
+	localStorage.setItem('igrajSvetsko','false');
+
+function izaberi(izabraniBroj)
+{	
+	switch(izabraniBroj)
+	{
+		case 0: localStorage.setItem('aktivnaLiga','Engleska');
+				window.location.replace("IzaberiSvojKlub.htm");
+				break;
+		case 1: localStorage.setItem('aktivnaLiga','Italija');
+				window.location.replace("IzaberiSvojKlub.htm");
+				break;
+		case 2: localStorage.setItem('aktivnaLiga','Spanija');
+				window.location.replace("IzaberiSvojKlub.htm");
+				break;
+		case 3: localStorage.setItem('aktivnaLiga','Nemacka');
+				window.location.replace("IzaberiSvojKlub.htm");
+				break;
+		case 4: localStorage.setItem('aktivnaLiga','Francuska');
+				window.location.replace("IzaberiSvojKlub.htm");
+				break;
+		case 5: localStorage.setItem('aktivnaLiga','Srbija');
+				window.location.replace("IzaberiSvojKlub.htm");
+				break;
+		case 6: localStorage.setItem('aktivnaLiga','PoIzboru');
+				window.location.replace("Izbor_Klubova.htm");
+	}
+}
+</script>
+<style>
+p	{
+font-size: 40px;
+text-align: center;
+font-weight: bold;
+}
+body	{
+background-color:#FFF5EE;
+}
+input	{
+width: 600px;
+height: 140px;
+font-size: 48px;
+margin-left:110px;
+margin-top: 10px;
+cursor: pointer;
+text-align:right;
+display:inline-block;
+}
+#Engleska	{
+background-image: url("images/engleska.gif");
+background-size: 600px 150px;
+padding-bottom:78px;
+}
+#Italija	{
+background-image: url("images/italija.gif");
+background-size: 600px 150px;
+padding-bottom:78px;
+}
+#Spanija	{
+background-image: url("images/spanija.gif");
+background-size: 600px 150px;
+}
+#Nemacka	{
+background-image: url("images/nemacka.gif");
+background-size: 600px 150px;
+}
+#Francuska	{
+background-image: url("images/francuska.gif");
+background-size: 600px 150px;
+padding-top:78px;
+}
+#Srbija	{
+background-image: url("images/srbija.gif");
+background-size: 600px 150px;
+padding-top:78px;
+}
+#po_izboru	{
+margin-left: 465px;
+text-align:center;
+color:blue;
+font-weight:bold;
+}
+</style>
+</head>
+<body>
+<p>IZABERITE LIGU:</p>
+<input type = "button" value = "Engleska" class = "lige" id = "Engleska" onclick = "izaberi(0)"></input>
+<input type = "button" value = "Italija" class = "lige" id = "Italija" onclick = "izaberi(1)"></input>
+<input type = "button" value = "Spanija" class = "lige" id = "Spanija" onclick = "izaberi(2)"></input>
+<input type = "button" value = "Nemacka" class = "lige" id = "Nemacka" onclick = "izaberi(3)"></input>
+<input type = "button" value = "Francuska" class = "lige" id = "Francuska" onclick = "izaberi(4)"></input>
+<input type = "button" value = "Srbija" class = "lige" id = "Srbija" onclick = "izaberi(5)"></input>
+<input type = "button" value = "po izboru" class = "lige" id = "po_izboru" onclick = "izaberi(6)"></input>
+</body>
+</html>

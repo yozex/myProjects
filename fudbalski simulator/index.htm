@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type = "text/javascript">
+function sacuvanaIgra(izbor)
+{
+	var igraJeIgrana = localStorage.getItem('izabraniKlub');	// ucitava jednu od sacuvanih vrednosti. ako je null ne moze da se izabere nastavak prethodne igre	
+	if (izbor === 'da' && igraJeIgrana !== null && igraJeIgrana !== '')
+	{	
+		var kojaStranica = localStorage.getItem('igrajSvetsko');	//sacuvana poslednja stranica koja je igrana. Glavna ili SvetskoPrvenstvo. sacuvano u buttonDisable() funkcijama
+		if(kojaStranica == 'false')							// ako je glavna
+		{
+			window.location.replace("Glavna.htm");
+		}
+		else												// ako je svetsko
+		{
+			window.location.replace("SvetskoPrvenstvo.htm");
+		}
+	}
+	else if (izbor === 'da' && igraJeIgrana === null)
+	{
+		alert("Ne postoji prethodno sacuvana igra. Pocnite novu igru.");
+		window.location.replace("Izbor_Lige.htm");	
+	}
+	else if (izbor === 'da' && igraJeIgrana === '')		// ako se izabere NE, predje na izbor lige i onda odatle pokrene Uvodna.htm startuje se polusacuvana igra. Ovim se to ponistava
+	{
+		alert("Obrisali ste prethodnu igru. Pocnite ispocetka");
+		window.location.replace("Izbor_Lige.htm");	
+	}
+	else						
+	{	
+	window.location.replace("Izbor_Lige.htm");	
+	}
+}
+
+</script>
+<style>
+p	{
+font-size: 60px;
+text-align: center;
+color:red;
+}
+.uvod	{
+font-size:30px;
+text-align:center;
+color:black;
+}
+input	{
+width: 600px;
+height: 200px;
+font-size: 60px;
+margin-left:110px;
+cursor: pointer;
+color:blue;
+background-color:#FFFACD;
+font-weight:bold;
+}
+input:hover	{
+ background-color: yellow;
+}
+body	{
+background-color:#FFF5EE;
+}
+</style>
+</head>
+<body>
+<p class = "uvod">Dobrodosli u fudbalski simulator!</br>Kada pocnete novu igru izabracete zeljenu ligu za igranje, a potom i svoj fudbalski klub.</br>U zavisnosti od toga koliko budete uspesni
+mozda cete moci da odigrate i Svetsko Prvenstvo.</p>
+<p>Da li zelite da nastavite prethodnu igru?</p>
+<input type = "button" value = "Da" onclick = "sacuvanaIgra('da')"></input><input type = "button" value = "Ne" onclick = "sacuvanaIgra('ne')"></input>
+</body>
+</html>

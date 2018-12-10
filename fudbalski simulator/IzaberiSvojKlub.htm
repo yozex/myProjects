@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type = "text/javascript">
+var aktivnaLiga = localStorage.getItem('aktivnaLiga');
+var klubovi	= 'klubovi'+aktivnaLiga;
+var niz = JSON.parse(localStorage.getItem(klubovi));
+
+function izaberiKlub()
+{
+	var lista = document.getElementById('timovi');
+	var izabraniKlub = lista.options[lista.selectedIndex].text;	
+	localStorage.setItem('izabraniKlub',izabraniKlub);	
+	window.location.replace("Glavna.htm");
+}
+
+function napraviIzborKlubova()
+{
+var lista = document.getElementById('timovi');
+lista.size = niz.length;
+
+for (var x = 0;x<niz.length;x++)
+{
+	lista.options[lista.options.length] = new Option(niz[x],x);		
+}
+}
+</script>
+<style>
+p	{
+font-size: 40px;
+text-align: center;
+font-weight: bold;
+}
+select	{
+font-size:20px;
+width: 700px;
+background-color:#FFFACD;
+margin-top:30px;
+}
+#potvrdi	{
+width:700px;
+height:150px;
+cursor:pointer;
+font-size:40px;
+font-weight: bold;
+background-color:#FFFACD;
+color:red;
+position:absolute;
+margin-top:420px;
+}
+input:hover {
+    background-color: yellow;
+}
+img	{
+width:700px;
+height:400px;
+position:absolute;
+opacity:0.6;
+}
+body	{
+background-color:#FFF5EE;
+}
+#vrati	{
+display:fixed;
+position:absolute;
+width:300px;
+font-size:16px;
+font-weight:bold;
+color:blue;
+cursor:pointer;
+}
+</style>
+</head>
+<body onload = "napraviIzborKlubova()">
+<p>IZABERITE KLUB:</p>
+<input type = "button" value = "Vrati se na izbor lige" id ="vrati" onclick = window.location.replace('Izbor_Lige.htm')></input>
+<select id = "timovi"></select>
+<img src="images/fudbal.jpg">
+<input type = "button" value = "POTVRDI KLUB" id = "potvrdi" onclick = "izaberiKlub()"></input>
+</body>
+</html>

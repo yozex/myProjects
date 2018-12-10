@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type = "text/javascript">
+var sveReprezentacije = [];
+var sveReprezentacijeKlase = [];
+var izabranaReprezentacija = localStorage.getItem('izabranaReprezentacija');
+var mestoZaRezultat = parseInt(localStorage.getItem('mestoZaRezultatSP'));
+var sviRezultati = JSON.parse(localStorage.getItem('sacuvaniRezultatiSP'));	
+var sviRazmaci = JSON.parse(localStorage.getItem('sacuvaniRazmaciSP'));
+var utakmiceSaPenalima = JSON.parse(localStorage.getItem('utakmiceSaPenalimaSP'));
+var pobedniciPenala = JSON.parse(localStorage.getItem('pobedniciPenalaSP'));
+
+function preuzmiKvalifikovane()
+{
+	var istina;										// da li je istinito da je grupa odigrana
+	var nizGrupa = ['A','B','C','D','E','F','G','H'];
+	for (let y = 0;y<nizGrupa.length;y++)
+	{
+		var staraTabela = 'staraTabelaSPgrupa'+nizGrupa[y];	
+		var nizKlubova = 'kluboviSPgrupa'+nizGrupa[y];
+		var kluboviGrupe = JSON.parse(localStorage.getItem(nizKlubova));
+		var nizKlasa = 'klaseSPgrupa'+nizGrupa[y];
+		var klaseGrupe = JSON.parse(localStorage.getItem(nizKlasa));
+		var provera = JSON.parse(localStorage.getItem(staraTabela));
+		var osmina = document.getElementsByClassName('klub');
+		if (provera.length !== 0)
+		{
+			for (let x = 0;x<=3;x++)					// da li su svi timovi u grupi odigrali svoje utakmice
+			{
+				if (provera[x][1] == 3)
+				istina = true;
+				else
+				{
+					istina = false;
+					break;
+				}
+			}
+			if(istina === true)
+			{
+				if (sveReprezentacije.indexOf(provera[0][0]) === -1)			// prve dve reprezentacije se preuzimaju samo ako je grupa skroz odigrana, pa je dovoljno da proverim samo prvoplasiranog
+				{
+					sveReprezentacije.push(provera[0][0]);
+					sveReprezentacije.push(provera[1][0]);
+					if (izabranaReprezentacija.toUpperCase() == provera[0][0])			// radi prepoznavanja klase koja je samo veliko pocetno slovo
+					{
+						let velikaSlova = [];						
+						for (let zz = 0;zz<kluboviGrupe.length;zz++)
+						{
+							velikaSlova.push(kluboviGrupe[zz].toUpperCase());							
+						}
+						let indeksPovlascenog = velikaSlova.indexOf(provera[0][0]);	
+						sveReprezentacijeKlase.push(klaseGrupe[indeksPovlascenog]);	
+					}
+					else
+					{
+						let indeksPovlascenog = kluboviGrupe.indexOf(provera[0][0]);	
+						sveReprezentacijeKlase.push(klaseGrupe[indeksPovlascenog]);
+					}
+					if (izabranaReprezentacija.toUpperCase() == provera[1][0])			// radi prepoznavanja klase koja je samo veliko pocetno slovo
+					{
+						let velikaSlova = [];						
+						for (let zz = 0;zz<kluboviGrupe.length;zz++)
+						{
+							velikaSlova.push(kluboviGrupe[zz].toUpperCase());							
+						}
+						let indeksPovlascenog = velikaSlova.indexOf(provera[1][0]);	
+						sveReprezentacijeKlase.push(klaseGrupe[indeksPovlascenog]);	
+					}
+					else
+					{
+						let indeksPovlascenog = kluboviGrupe.indexOf(provera[1][0]);	
+						sveReprezentacijeKlase.push(klaseGrupe[indeksPovlascenog]);
+					}
+				}
+				switch(y)					// dve prvoplasirane idu u osminu finala. kod svake se proverava da li je izabrana reprezentacija da promeni boju u slucaju da jeste
+				{
+					case 0: osmina[0].innerHTML = provera[0][0];dodeliBoju(0);
+							osmina[5].innerHTML = provera[1][0];dodeliBoju(5);
+							break;
+					case 1: osmina[4].innerHTML = provera[0][0];dodeliBoju(4);
+							osmina[1].innerHTML = provera[1][0];dodeliBoju(1);
+							break;
+					case 2: osmina[2].innerHTML = provera[0][0];dodeliBoju(2);
+							osmina[7].innerHTML = provera[1][0];dodeliBoju(7);
+							break;
+					case 3: osmina[6].innerHTML = provera[0][0];dodeliBoju(6);
+							osmina[3].innerHTML = provera[1][0];dodeliBoju(3);
+							break;
+					case 4: osmina[8].innerHTML = provera[0][0];dodeliBoju(8);
+							osmina[13].innerHTML = provera[1][0];dodeliBoju(13);
+							break;
+					case 5: osmina[12].innerHTML = provera[0][0];dodeliBoju(12);
+							osmina[9].innerHTML = provera[1][0];dodeliBoju(9);
+							break;
+					case 6: osmina[10].innerHTML = provera[0][0];dodeliBoju(10);
+							osmina[15].innerHTML = provera[1][0];dodeliBoju(15);
+							break;
+					case 7: osmina[14].innerHTML = provera[0][0];dodeliBoju(14);
+							osmina[11].innerHTML = provera[1][0];dodeliBoju(11);						
+				}				
+			}		
+		}
+	}		
+}
+function dodeliBoju(pozicija)			// promena boje reprezentacije. pozicija je indeks mesta za reprezentaciju u nokaut fazi
+{
+	var mestaZaRep = document.getElementsByClassName("klub");
+	if (mestaZaRep[pozicija].innerHTML == izabranaReprezentacija.toUpperCase())
+	{
+		mestaZaRep[pozicija].classList.add('red');
+	}
+}
+
+function napraviRezultat()		
+{
+	var rez = document.getElementsByClassName('rez');
+	var tim = document.getElementsByClassName('klub');
+	var razmak = document.getElementsByClassName('razmak');
+	//potencijalni random rezultati, prilagodjeno jacini timova; na SP samo rezultati kao u gostima
+	var istaKlasaGost = 			[4,3,3,3,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0];
+	var razlikaPlusJedanGost = 		[5,4,4,4,3,3,3,3,3,2,2,2,2,2,2,2,1,1,1,1,1,1,1,0,0,0,0,0,0,0];
+	var razlikaMinusJedanGost = 	[3,3,2,2,2,2,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	var razlikaPlusDvaGost = 		[6,5,5,4,4,4,4,3,3,3,3,3,2,2,2,2,2,2,2,2,1,1,1,1,1,1,0,0,0,0];
+	var razlikaMinusDvaGost = 		[3,2,2,2,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+	
+	var domaciTimKlasa,gostujuciTimKlasa,razlikaUklasi;	
+	
+	function kreiraGolove(golovi)
+		{
+			rez[mestoZaRezultat].innerHTML = golovi[Math.floor(Math.random()*golovi.length)];
+			sviRezultati.push(rez[mestoZaRezultat].innerHTML);
+			localStorage.setItem('sacuvaniRezultatiSP',JSON.stringify(sviRezultati));
+			if(mestoZaRezultat%2 !==0)
+			{
+			sviRazmaci.push(razmak[(mestoZaRezultat-1)/2].innerHTML);
+			localStorage.setItem('sacuvaniRazmaciSP',JSON.stringify(sviRazmaci));
+			}
+		}
+	function svicDomaci()
+		{
+			switch(razlikaUklasi)
+			{
+				case 0: kreiraGolove(istaKlasaGost);
+						break;
+				case 1: kreiraGolove(razlikaPlusJedanGost);
+						break;
+				case 2: kreiraGolove(razlikaPlusDvaGost);
+						break;
+				case -1:kreiraGolove(razlikaMinusJedanGost);
+						break;
+				case -2:kreiraGolove(razlikaMinusDvaGost);
+			}		
+		}
+	function svicGost()
+		{
+			switch(razlikaUklasi)
+			{
+				case 0: kreiraGolove(istaKlasaGost);
+						break;
+				case 1: kreiraGolove(razlikaMinusJedanGost);
+						break;
+				case 2: kreiraGolove(razlikaMinusDvaGost);
+						break;
+				case -1:kreiraGolove(razlikaPlusJedanGost);
+						break;
+				case -2:kreiraGolove(razlikaPlusDvaGost);
+			}	
+		}	
+	
+	if (mestoZaRezultat < rez.length)
+	{		
+		if (mestoZaRezultat%2 === 0)
+		{			
+			domaciTimKlasa = sveReprezentacijeKlase[sveReprezentacije.indexOf(tim[mestoZaRezultat].innerHTML)];
+			gostujuciTimKlasa = sveReprezentacijeKlase[sveReprezentacije.indexOf(tim[mestoZaRezultat+1].innerHTML)];
+			razlikaUklasi = (domaciTimKlasa-gostujuciTimKlasa)*-1;	
+			svicDomaci();			
+		}
+		else if(mestoZaRezultat%2 !== 0)
+		{
+			domaciTimKlasa = sveReprezentacijeKlase[sveReprezentacije.indexOf(tim[mestoZaRezultat-1].innerHTML)];
+			gostujuciTimKlasa = sveReprezentacijeKlase[sveReprezentacije.indexOf(tim[mestoZaRezultat].innerHTML)];
+			razlikaUklasi = (domaciTimKlasa-gostujuciTimKlasa)*-1;	
+			svicGost();
+			var sacuvano = false;
+			koIdeDalje(mestoZaRezultat,sacuvano);			
+		}
+		mestoZaRezultat++;	
+		localStorage.setItem('mestoZaRezultatSP',mestoZaRezultat);
+	}
+	else										// prijavljuje ako je takmicenje zavrseno
+	{
+	alert("Nema vise utakmica!");
+	}
+}
+
+function napraviRezultatBrzo()	
+{
+	var rez = document.getElementsByClassName('rez');
+	napraviRezultat();
+	if (mestoZaRezultat<rez.length && mestoZaRezultat%2 !== 0)		// drugi uslov da bi se zavrsila aktuelna utakmica , a da ne prenese u novu
+	napraviRezultat();
+}
+
+function koIdeDalje(mestoZaRezultatA,penaliOdigrani)
+{	
+	var klubovi = document.getElementsByClassName('klub');
+	var rez = document.getElementsByClassName('rez');
+	var domaciGolova = parseInt(rez[mestoZaRezultatA-1].innerHTML);
+	var gostiGolova = parseInt(rez[mestoZaRezultatA].innerHTML);
+	var pobednik;
+	if (domaciGolova > gostiGolova)
+	{
+		klubovi[mestoZaRezultatA-1].classList.add('pobednik');
+		pobednik = klubovi[mestoZaRezultatA-1].innerHTML;
+	}
+	else if (domaciGolova < gostiGolova)
+	{
+		klubovi[mestoZaRezultatA].classList.add('pobednik');
+		pobednik = klubovi[mestoZaRezultatA].innerHTML;
+	}
+	else if (domaciGolova === gostiGolova)
+	{
+		var zvezdice = document.getElementsByClassName('razmak');
+		zvezdice[(mestoZaRezultatA-1)/2].innerHTML = 'PENALI';	
+		if(penaliOdigrani === false)						// funkciju poziva rezultat utakmice
+		{
+			utakmiceSaPenalima.push(mestoZaRezultatA);			//mestoZaRezultat sluzi kao broj utakmice
+			localStorage.setItem('utakmiceSaPenalimaSP',JSON.stringify(utakmiceSaPenalima));	// zabelezi broj utakmice na kojoj su igrani penali
+			var broj = Math.floor(Math.random()*2);							
+			if ( broj === 0)
+			{
+				klubovi[mestoZaRezultatA-1].classList.add('pobednik');
+				pobednik = klubovi[mestoZaRezultatA-1].innerHTML;
+			}
+			else if (broj === 1)
+			{
+				klubovi[mestoZaRezultatA].classList.add('pobednik');
+				pobednik = klubovi[mestoZaRezultatA].innerHTML;
+			}	
+			pobedniciPenala.push(pobednik);
+			localStorage.setItem('pobedniciPenalaSP',JSON.stringify(pobedniciPenala));	// zabelezi pobednika utakmice sa penalima
+		}
+		else																				// funkcija se ucitava na pocetku 
+		{
+			pobednik = pobedniciPenala[utakmiceSaPenalima.indexOf(mestoZaRezultatA)];		// pronadji ko je pobedio kada je utakmica odigrana
+			if(pobednik == klubovi[mestoZaRezultatA].innerHTML)
+			{
+				klubovi[mestoZaRezultatA].classList.add('pobednik');
+			}
+			else if(pobednik == klubovi[mestoZaRezultatA-1].innerHTML)
+			{
+				klubovi[mestoZaRezultatA-1].classList.add('pobednik');
+			}			
+		}
+	}	
+	var pobednici = document.getElementsByClassName('pobednik');		
+		pobednici[pobednici.length-1].style.color = 'red';	
+
+	switch(mestoZaRezultatA)
+	{
+		case 1:klubovi[16].innerHTML = pobednik;dodeliBoju(16);break;	//pobednici osmine u cetvrtfinale
+		case 3:klubovi[17].innerHTML = pobednik;dodeliBoju(17);break;
+		case 5:klubovi[22].innerHTML = pobednik;dodeliBoju(22);break;
+		case 7:klubovi[23].innerHTML = pobednik;dodeliBoju(23);break;
+		case 9:klubovi[18].innerHTML = pobednik;dodeliBoju(18);break;
+		case 11:klubovi[19].innerHTML = pobednik;dodeliBoju(19);break;
+		case 13:klubovi[20].innerHTML = pobednik;dodeliBoju(20);break;
+		case 15:klubovi[21].innerHTML = pobednik;dodeliBoju(21);break;
+		
+		case 17:klubovi[24].innerHTML = pobednik;dodeliBoju(24);break;	//pobednici cetvrtfinala u polufinale
+		case 19:klubovi[25].innerHTML = pobednik;dodeliBoju(25);break;
+		case 21:klubovi[26].innerHTML = pobednik;dodeliBoju(26);break;
+		case 23:klubovi[27].innerHTML = pobednik;dodeliBoju(27);break;
+		
+		case 25:klubovi[28].innerHTML = pobednik;dodeliBoju(28);break;	// pobednici polufinala u finale
+		case 27:klubovi[29].innerHTML = pobednik;dodeliBoju(29);break;
+		
+		case 29:document.getElementById('svetskiSampion').value = pobednik;	//svetski sampion				
+	}		
+}
+
+function ucitaj()	//ucitaj stare rezultate
+{
+	var mestaZaRezultat = document.getElementsByClassName('rez');
+	for (var x = 0;x<sviRezultati.length;x++)
+	{
+		mestaZaRezultat[x].innerHTML = parseInt(sviRezultati[x]);
+	}	
+	for(var z = 1;z<mestoZaRezultat;z+=2)		// ako je odigran mec nokaut faze proveri ko je prosao dalje
+	{
+		if(mestaZaRezultat[z].innerHTML !== '')
+		{
+			var sacuvano = true;		
+			koIdeDalje(z,sacuvano);
+		}
+	}	
+}
+
+</script>
+<style>
+#jedan	{
+position:fixed;
+display:inline-block;
+margin-top:20px;
+}
+#dva	{
+position:fixed;
+margin-left:200px;
+margin-top:20px;
+display:inline-block;
+background-color:white;
+}
+#svetskiSampion	{
+margin-left:900px;
+margin-top:200px;
+width:550px;
+height:350px;
+background-color:#DAA520;
+font-weight:bold;
+color:blue;
+font-size:75px;
+text-transform: uppercase;
+text-align:center;
+}
+p	{
+margin-left:1000px;
+margin-top:100px;
+font-size:36px;
+font-weight:bold;
+position:absolute;
+}
+input[type=button]	{
+width:160px;
+height:60px;
+cursor:pointer;
+background-color:#FFFACD;
+font-weight:bold;
+font-size:12px;
+color:blue;
+}
+input:hover	{
+ background-color: yellow;
+}
+body	{
+background-color:#FFF5EE;
+}
+.rez	{
+background-color:#FFDF00;
+font-weight:bold;
+}
+thead{
+background-color: #E0FFFF;
+}
+.sifra	{
+background-color: #D3D3D3;
+}
+.red	{
+font-weight:bold;
+color:green;
+}
+</style>
+</head>
+<body onload = "preuzmiKvalifikovane();ucitaj()">
+<div id="jedan"><input type = "button" value = "Vrati se na glavnu" onclick = window.location.replace('SvetskoPrvenstvo.htm')></input></br>
+<input type = "button" value = "REZULTAT" id = "skor" onclick = "napraviRezultat()"></input></br><input type = "button" value = "REZULTAT BRZO" id = "skorBrzo" onclick = "napraviRezultatBrzo()"></input></br></div>
+<div id = "dva"><table id = "osmina" border = "3px solid">
+<thead><th>OSMINA FINALA</th></thead>
+<tbody>
+<tr><td width = "200px" height = "30px" class = "klub">A1</td><td class = "sifra" width = "15px">A</td><td width = "200px" height = "30px" class = "klub">B2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">C1</td><td class = "sifra" width = "15px">B</td><td width = "200px" height = "30px" class = "klub">D2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">B1</td><td class = "sifra" width = "15px">C</td><td width = "200px" height = "30px" class = "klub">A2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">D1</td><td class = "sifra" width = "15px">D</td><td width = "200px" height = "30px" class = "klub">C2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">E1</td><td class = "sifra" width = "15px">E</td><td width = "200px" height = "30px" class = "klub">F2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">G1</td><td class = "sifra" width = "15px">F</td><td width = "200px" height = "30px" class = "klub">H2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">F1</td><td class = "sifra" width = "15px">G</td><td width = "200px" height = "30px" class = "klub">E2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">H1</td><td class = "sifra" width = "15px">H</td><td width = "200px" height = "30px" class = "klub">G2</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+</tbody>
+</table>
+<table id = "cetvrtfinale" border = "3px solid">
+<thead><th>CETVRTFINALE</th></thead>
+<tbody>
+<tr><td width = "200px" height = "30px" class = "klub">A</td><td class = "sifra" width = "15px">w</td><td width = "200px" height = "30px" class = "klub">B</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">E</td><td class = "sifra" width = "15px">x</td><td width = "200px" height = "30px" class = "klub">F</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">G</td><td class = "sifra" width = "15px">y</td><td width = "200px" height = "30px" class = "klub">H</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">C</td><td class = "sifra" width = "15px">z</td><td width = "200px" height = "30px" class = "klub">D</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+</tbody>
+</table>
+<table id = "polufinale" border = "3px solid" width="609px">
+<thead><th>POLUFINALE</th></thead>
+<tbody>
+<tr><td width = "200px" height = "30px" class = "klub">w</td><td width = "200px" height = "30px" class = "klub">x</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+<tr><td width = "200px" height = "30px" class = "klub">y</td><td width = "200px" height = "30px" class = "klub">z</td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+</tbody>
+</table>
+<table id = "finale" border = "3px solid" width="609px">
+<thead><th>FINALE</th></thead>
+<tbody>
+<tr><td width = "200px" height = "30px" class = "klub"></td><td width = "200px" height = "30px" class = "klub"></td><td width = "50px" height = "30px" class = "rez"></td><td width = "50px" height = "30px" class = "razmak">******</td><td width = "50px" height = "30px" class = "rez"></td></tr>
+</tbody>
+</table></div>
+<p>SVETSKI SAMPION:</p>
+<input type = "text" id = "svetskiSampion" size = "50px" readonly = "true"></input></br></br>
+</body>
+</html>
