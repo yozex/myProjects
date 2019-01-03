@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type = text/css rel = "stylesheet" href = "css/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    </head>
+    <body>       
+       <div id = 'enter-recipe'>
+            <div id = "nav-left-name"><button  id = "side-button-name">Name</button><br>
+                            <input type = "text" id = "hidden-name" maxlength="40" placeholder = "Press Enter when you are done."></div><br>
+            <div id = "nav-left-type"><button  id = "side-button-type">Type</button><br><button class = "hidden-type">MEAL</button><button class = "hidden-type">BAKED</button><button class = "hidden-type">COOKIE</button></div><br>
+            <div id = "nav-left-add"><button  id = "side-button-add">Add ingredient <br>& amount</button><br>
+                            <section class = "hidden-add">
+                                <button class = "hidden-add" id="add-more">Add more</button><button class = "hidden-add" id="done">Done</button>
+                                <p>INGREDIENT</p><p>AMOUNT</p><br>
+                                <input type = "text" id = "first-input"><input type = "text"><br>
+                                <input type = "text"><input type = "text"><br>
+                                <input type = "text"><input type = "text"><br>
+                                <input type = "text"><input type = "text"><br>
+                                <input type = "text"><input type = "text"><br>
+                            </section>                                                   
+                        </div><br>
+            <div id = "nav-left-prep"><button  id = "side-button-prep">Preparation</button>
+                <textarea rows="20" columns = "50" class = "hidden-prep" placeholder = "Please write the short description of the meal preparation." id = "prep-textarea"></textarea><br>
+                    <button class = "hidden-prep" id = "button-prep-done">Done</button></div><br>
+            <button class = "help-button" id = "help-new-recipe">HELP</button>
+            <button id = "save-recipe">SAVE RECIPE</button>
+            <button id = "old-recipes-button">OLD RECIPES</button>
+            <button id = "clear-fields">CLEAR FIELDS</button>
+       </div>
+
+        <div id = "recipe-appearance">
+           <h1 id = "name-done"></h1>
+           <div id = "img-div">
+           <img id = "type-done" src = ''>
+           <input type = "button" id = "img-input" value="Change Image"/>
+           <input type = "file" id = "img-input-hidden">
+           </div>
+           <div id = "add-done">
+                <table>
+                    <thead>
+                        <tr><th>Ingredient</th><th>Amount</th></tr>
+                    </thead>
+                    <tbody id = "body"></tbody>
+                </table>
+           </div>
+           <textarea id = "prep-done" readonly="readonly"></textarea>
+        </div>
+
+        <div id="old-recipes">
+            <button class = "help-button" id = "help-old-recipes">HELP</button>
+            <p>PLEASE CHOOSE THE TYPE OF RECIPE</p><br>           
+            <figure id = "image1"><img src = "images/baked.jpg"><figcaption>BAKED FOOD</figcaption></figure>
+            <figure id = "image2"><img src = "images/cookie.jpg"><figcaption>COOKIES AND CAKES</figcaption></figure>
+            <figure id = "image3"><img src = "images/meal.jpg"><figcaption>MEALS</figcaption></figure> 
+            <button id = "back-to-new">BACK TO NEW RECIPES</button>                       
+        </div>
+
+        <div id = "list-of-recipes">
+            <button class = "help-button" id = "help-list-recipe">HELP</button>
+            <ul></ul>
+            <button id = "recipe-menu">GO BACK</button><br>
+            <button id = "change-recipe" disabled = "disabled">CHANGE THIS RECIPE</button><br>
+            <button id = "delete-recipe" disabled = "disabled">DELETE THIS RECIPE</button><br>
+            <button id = "back-to-new2">NEW RECIPE</button>
+        </div>
+
+        <div id="help-new-popup" class="help">
+            <header class = "help-header" id = "help-header-new">Move me!</header>
+            <section class = "help-section">
+              <p>Press <em>this window</em> to close it.</p>
+              <p><em>NAME BUTTON</em> : Enter the name for the recipe and press Enter.</p>
+              <p><em>TYPE BUTTON</em> : Click the type of food. </p>
+              <p><em>CHANGE IMAGE</em> : To change an image, you must first select the type of food. Also, image must be saved in \images\ folder </p>
+              <p><em>ADD INGREDIENT BUTTON</em> : Add ingredients and their amount. In case there is more than five of them , click add more button.
+                  When you have finished click done.</p>
+              <p><em>PREPARATION BUTTON</em> : Enter how the food is suposed to be prepared. When you have finished click done.</p>
+              <p><em>SAVE RECIPE BUTTON</em> : When you have entered all the data, click to save the recipe and add it to the recipe list.</p>
+              <p><em>OLD RECIPES BUTTON</em> : Look into saved recepies.</p>
+              <p><em>CLEAR FIELDS BUTTON</em> : If you want to start the recipe all over, clears the current onscreen entries.</p> 
+            </section>                  
+        </div>
+        <div id="help-old-popup" class="help">  
+            <header class = "help-header" id = "help-header-old">Move me!</header> 
+            <section class = "help-section">
+              <p>Press <em>this window</em> to close it.</p>
+              <p><em>BAKED FOOD</em> will take you to your bakery recipes list.</p>
+              <p><em>MEALS</em> will take you to your lunch recipes list.</p>
+              <p><em>COOKIES AND CAKES</em> will take you to your desert recipes list.</p>
+              <p><em>BACK TO NEW RECIPES BUTTON</em> : go back and create a new recipe.</p>  
+            </section>                  
+        </div>
+        <div id="help-list-popup" class="help"> 
+            <header class = "help-header" id = "help-header-list">Move me!</header>
+            <section class = "help-section">
+              <p>Press <em>this window</em> to close it.</p>
+              <p>Click on a recipe from the list to show it on the right side of a screen.</p>
+              <p><em>BACK TO RECIPE MENU BUTTON</em> : Go back to change the type of the recipes.</p>
+              <p><em>CHANGE THIS RECIPE</em>: Choose the recipe from the list, then click on this button to change the recipe details.
+                  <mark>Important!</mark>It is disabled until you choose the recipe.</p>
+              <p><em>DELETE THIS RECIPE</em> : Delete recipe entirely. You will be asked for confirmation.</p>
+              <p><em>CREATE NEW RECIPE BUTTON</em> : Go back to the beginning and create a new recipe.</p> 
+            </section>                  
+        </div>
+        <script src = "js/jquery-3.1.1.js"></script>
+        <script src = "js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,398 @@
+                                               
+                                               /* LARGER DIV`s */
+
+body {
+    background-color:rgb(228, 228, 139);
+    font-family:cursive, serif;
+}
+
+#enter-recipe, #old-recipes, #list-of-recipes {
+    border: 2px solid black;    
+    float:left;
+    position:absolute;
+    top:0%;
+    bottom:0%;
+    left:0%;
+    right:59%;
+    overflow:auto;
+}
+
+#recipe-appearance {
+    border: 2px solid black;    
+    float:right;
+    position:absolute;
+    top:0%;
+    bottom:0%;
+    right:0%;
+    left:41%;  
+    background-color:rgb(236, 195, 202);  
+}
+
+#old-recipes {
+    display:none;    
+    background-color:rgb(231, 57, 14);  
+}   
+
+#list-of-recipes {
+    display:none;
+    background-color: rgb(139, 235, 203);
+}
+
+
+
+                                                /* SMALLER DIV`s */
+
+#nav-left-name, #nav-left-type, #nav-left-add, #nav-left-prep{
+    position: absolute;    
+    width:40%;
+    left:1%;
+    margin-bottom:7%; 
+    box-shadow: 3px 3px 10px blue;
+    background-color:rgb(92, 240, 92);    
+}
+
+#nav-left-name {    
+    top:10%;    
+}
+
+#nav-left-type {    
+    top:28%;    
+}
+
+#nav-left-add {    
+    top:48%;    
+}
+
+#nav-left-prep {      
+    top:72%;    
+}
+
+.help {
+    display: none; 
+    position: absolute; 
+    z-index: 1;     
+    width: 40%; 
+    left:25%;
+    top:20%;    
+    overflow: auto; 
+    border:5px solid red;
+    font-size:1vw;
+    background-color:white;
+    padding: 10px;
+  }
+
+                                                        /* BUTTONS */
+
+button {
+    font-family:cursive, serif;
+}
+
+#save-recipe {
+    position:absolute;
+    left:33%;
+    top:1%;
+    font-size:2vw;
+    font-weight: bold;
+    background-color:rgb(223, 66, 66);
+    z-index: 1;
+    overflow:auto;
+}
+
+#save-recipe:hover{
+    background-color:orange;
+}
+
+#side-button-name, #side-button-type, #side-button-add, #side-button-prep {
+    background-color:rgb(51, 218, 204);
+    color:red;
+    font-size:1.7vw;
+    width:100%;
+    padding:10px;
+    overflow:auto;
+ }
+
+#side-button-name:hover, #side-button-type:hover, #side-button-add:hover, #side-button-prep:hover {
+     background-color:rgb(109, 180, 180)
+ }
+ 
+button.hidden-add {
+    width:50%;    
+    font-size:1vw;
+    font-weight:bold;
+}
+
+button.hidden-prep {
+    font-size:1vw;
+    width:100%;
+    font-weight:bold;
+}
+
+#old-recipes-button, #back-to-new {
+    position: absolute;
+    bottom:5%;
+    left:3%;
+    font-size:2vw;
+    font-weight: bold;
+    color:rgb(245, 9, 9);
+    background-color:rgb(224, 220, 220);
+}
+
+#old-recipes-button:hover, #back-to-new:hover{
+    background-color:rgb(224, 166, 166);
+}
+
+#clear-fields, .help-button {
+    position:absolute;
+    top:1%;
+    right:1%;
+    font-size:1.1vw;
+    font-weight:bold;
+    border-radius:40%;
+}
+
+.help-button {
+    left:1%;
+    width:22%;
+}
+
+#img-input {
+    font-size:0.9vw;
+    font-weight:bold;
+    border-radius:10%;
+    display:none;
+}
+
+#img-input-hidden {
+    display:none;
+}
+
+#recipe-menu, #change-recipe, #back-to-new2, #delete-recipe {    
+    width:10%;
+    height:15%;
+    border-radius: 10%;
+    position:fixed;
+    float:right;
+    clear:right;
+    left:28%;    
+    font-weight: bold;
+    font-size:1.2vw;
+    font-style:italic;
+    overflow:auto;
+    background-color:yellow;
+    box-shadow:5px 5px 20px 10px green;
+}
+
+#change-recipe, #delete-recipe {
+    width:7.5%;   
+    height:10%;
+    font-size:1vw;
+    left:29.25%;
+}
+
+#recipe-menu{
+    top:7.5%;
+}
+#change-recipe{
+    top:35%;
+}
+#back-to-new2{
+    bottom:7.5%;
+}
+#delete-recipe{
+    bottom:35%;
+}
+
+#recipe-menu:hover,#change-recipe:hover,#back-to-new2:hover,#delete-recipe:hover {
+    background-color: rgb(214, 214, 125);
+}
+
+
+                                                        /* REST */
+
+.hidden-type, #hidden-name, .hidden-add, .hidden-prep{
+    display:none;
+}
+
+#hidden-name {
+    width:98%;
+}
+
+.hidden-type{
+    width:33.3%;
+    font-size:1vw;
+    font-weight:bold;
+    background-color: pink;    
+    overflow:auto;
+}
+
+input{
+    font-family:cursive, serif;
+    font-weight:bold;
+}
+
+textarea {
+    width:97.5%;
+    font-family:cursive, serif;
+}
+button:hover, figure:hover, #list-of-recipes li {
+    cursor:pointer;
+}
+
+figure:hover {
+    opacity:0.8;
+}
+
+#list-of-recipes li:hover {
+    color:rgb(179, 105, 105);
+}
+
+#name-done {    
+    font-size: 2.5vw;
+    font-weight: bold;    
+    text-transform: uppercase;    
+    color:purple;
+    margin-top:4%;
+    height:40px;
+}
+
+#add-done {
+    overflow:auto;
+    width:55%;
+    position:absolute;
+    top:15%;
+    bottom:1%;
+}
+
+#prep-done {    
+    width:40%;
+    height:40%;
+    border-radius:3%;
+    position:absolute;
+    right:1%;
+    bottom:1%;  
+    background-color:rgb(101, 235, 201); 
+    font-size:1.2vw;
+    font-family:cursive, serif;
+}
+
+h1 {
+    text-align:center;
+}
+
+section.hidden-add p{
+    display:inline-block;
+    font-size:1.4vw;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    color:red;  
+    width:50%;    
+    overflow:auto;      
+}
+
+section.hidden-add input{
+    width:48%;
+    text-align:center;
+    overflow:auto;
+}
+
+table, th, tr, td {    
+    width:100%;
+    margin:0 auto;   
+}
+
+th,td {
+    width:48%;
+    font-size:1.5vw;
+    text-align:center;
+}
+
+th {
+    color:red;
+    font-size:2vw;    
+}
+
+#img-div {
+    position:absolute;
+    right:1%;
+    width: 40%;
+    float:right; 
+}
+
+img {
+    width:100%;
+    box-shadow: 3px 3px 10px grey;
+}
+
+#type-done {    
+    height:80%;
+}
+
+figure {
+    display:inline-block;
+    width:40%;
+    position:absolute;
+}
+
+figcaption {
+    text-align:center;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color:blue;
+}
+
+#image1 {    
+    margin-left:30%;
+    top:15%;    
+}
+
+#image2 {    
+    margin-left:5%;
+    top:50%;    
+}
+
+#image3 {    
+    margin-left:55%;
+    top:50%;    
+}
+
+#old-recipes p {
+    font-size:2.2vw;
+    font-weight:bold;
+    color:white;
+    text-align:center;
+}
+
+ul {
+    width:50%;
+    display: inline-block;
+    overflow:auto;
+    font-size:1.5vw;
+    font-weight:bold;
+    font-family:'Comic Sans MS', serif;
+    word-spacing: 100%;   
+    color:brown;
+    position:absolute;
+    left:5%;
+    top:5%;      
+}
+
+mark {
+    background-color:red;
+    font-weight:bold;
+    font-size:1.2vw;
+}
+
+em {
+    font-weight:bold;
+    color:blue;
+    font-size:1.2vw;
+}
+
+header {
+    text-align:center;
+    color:green;
+    background-color:rgb(180, 179, 179);
+    cursor:move;
+}
+
