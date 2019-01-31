@@ -1,0 +1,155 @@
+img {
+    width:100%;
+    height:auto;
+    border-radius:20%;    
+}
+
+.wolf {
+    width:3.5%;
+    position:absolute;
+}
+
+#wolf1 {
+    left:3%;
+    top:10%;
+}
+#wolf2 {
+    left:3%;
+    bottom:2%;
+}
+#wolf3 {
+    left:48%;
+}
+#wolf4 {
+    left:43%;
+    bottom:1%;
+}
+#wolf5 {
+    bottom:4%;
+    right:8%;
+}
+#wolf6 {
+    right:8%;
+    top:8%;
+}
+
+#sheep-fence {
+    width:12%;
+    position:absolute;
+    left:44%;
+    bottom:41.5%;
+    z-index: 2;
+}
+
+#escape-space{
+    position:absolute;
+    left:5%;
+    right:5%;
+    top:5%;
+    bottom:5%;
+    border-radius:20%;
+    background-color: brown;
+    background: radial-gradient(rgb(156, 190, 32),rgb(7, 172, 7));    
+}
+
+#forest {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0%;
+    left:0%;
+    background-image: url('../images/forest.png');
+    background-repeat:repeat;
+    background-size:5%;
+    background-color:green;    
+}
+
+#score {
+    position: absolute;
+    z-index:3;
+    font-weight:bold;
+    font-size:1.2vw;
+    left:45.2%;
+    bottom:43%;
+    opacity:0.6;
+}
+
+#score span {
+   font-size:3vw;
+}
+
+.intro {
+    display: block;
+    position:absolute;
+    z-index:4;
+    width:40%;
+    height:40%;
+    top:30%;
+    left:30%;
+    background-color:rgb(36, 192, 192);    
+    text-align:center;
+}
+
+.intro button {
+    width:70%;
+    font-size:2vw;
+    font-weight:bold;
+    cursor:pointer;
+    background-color:rgb(197, 197, 10);
+}
+
+.intro p {
+    font-size:1.5vw;
+}
+
+.intro h1 {   
+    color:rgb(211, 17, 17);
+    font-size:2.5vw;
+}
+
+.none{
+    display:none;
+}
+
+.highscores {
+    display:block;
+    position:absolute;
+    z-index:5;
+    width:40%;
+    height:40%;
+    top:30%;
+    left:30%;
+    background-color:rgb(36, 192, 192);   
+    text-align:left;
+}
+
+#narrower-scores {
+    position:absolute;
+    width:60%;
+    left:20%;
+}
+
+.highscores p {
+    font-size:1.3vw;
+    font-weight: bold;
+    color:red;
+    text-transform: capitalize;    
+}
+
+.highscores button {
+    width:50%;
+    position:absolute;
+    left:25%;
+    font-size:1.5vw;
+    font-weight:bold;
+    cursor:pointer;
+    background-color:rgb(197, 197, 10);
+}
+
+.highscores-scores{
+    position: absolute;
+    right:5%;
+}
+.highscores-names {
+    letter-spacing: 0.2vw;   
+}
