@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link type = text/css rel = "stylesheet" href = "style.css">
+    </head>
+    <body>
+        <div id = 'enter-date'>
+            <div>
+            <span>Start date: </span><input type = "date" class = "date"/></br></br>
+            <span>End date: </span><input type = "date" class = "date"/></br></br>
+            </div>
+            <button id="show-asteroids" onclick="validateDates()">Show Asteroids</button>
+        </div>
+        <span id ="request-status">Waiting...</span>
+        <div id = "pagination-container"><span>Choose page: </span><span class = "arrow" onclick="changePageWithArrows(-1)"><<</span>
+                                        <div id = "page-container"></div><span class = "arrow" onclick="changePageWithArrows(1)">>></span></div>
+        <div id = "show-data">
+            <div id = "table-div">
+                <table>
+                <thead>
+                    <tr><th class="clickable" onclick = "sortData(0)">Date</th><th>Name</th><th class="clickable" onclick = "sortData(2)">Velocity(km/h)</th>
+                        <th class="clickable" onclick = "sortData(3)">Min.diameter (m)</th><th class="clickable" onclick = "sortData(4)">Max.diameter(m)</th></tr>
+                </thead>
+                <tbody id = "table-body"></tbody>
+                </table>
+            </div>
+            <p>Select Asteroids:</p>
+            <input list="asteroids" id = "select-asteroids" placeholder="Enter asteroid name">
+            <datalist id="asteroids">            
+            </datalist>
+            <div id = "div-for-chosen-asteroids">
+                <ul id = "list-of-chosen-asteroids"></ul>
+            </div>
+            <button id = "go-to-the-second-page" onclick="calculatePasses()">Passing by Earth count</button>
+        </div>
+
+
+
+
+        <script src = "main.js"></script>
+    </body>
+</html>
